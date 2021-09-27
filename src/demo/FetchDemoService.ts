@@ -1,4 +1,4 @@
-import { GET, Path } from '../methods/PostMethod'
+import { GET, Path } from '../methods/HttpMethod'
 import { AxiosResponse } from 'axios'
 
 const onUnsupport = (() => Promise.reject('Unsupport'))

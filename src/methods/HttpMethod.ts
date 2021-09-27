@@ -66,4 +66,5 @@ function Path(path: string) {
     }
 }
 
-export { GET, Path, POST }
+const OnUnsupport = (() => Promise.reject('Unsupport'))
+export { GET, Path, POST, OnUnsupport }
