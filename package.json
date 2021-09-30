@@ -2,15 +2,15 @@
   "name": "knict-fetch",
   "version": "0.1.4",
   "description": "",
-  "main": "dist/index.js",
+  "main": "src/index.ts",
   "scripts": {
-    "build": "rm -rf ./dist && tsc",
+    "build": "rm -rf ./dist && tsc && rm -rf ./bin/* && mkdir ./bin && cp -r ./dist/* ./bin",
     "test": "yarn build && node ./dist/test/test.js"
   },
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "knict": "0.1.9"
+    "knict": "file:../knict"
   },
   "devDependencies": {
     "axios": "^0.21.4",
