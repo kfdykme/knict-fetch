@@ -10,7 +10,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "knict": "^0.1.11"
+    "knict": "^0.2.2"
   },
   "devDependencies": {
     "axios": "^0.21.4",

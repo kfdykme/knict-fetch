@@ -14,10 +14,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const index_1 = require("../index");
 const GankService_1 = require("./service/GankService");
 (() => __awaiter(void 0, void 0, void 0, function* () {
-    index_1.Knict.builder(new index_1.FetchClientBuilder()
+    const demo = index_1.Knict.builder(new index_1.FetchClientBuilder()
         // .baseUrl('https://api.github.com/')
-        .baseUrl('https://gank.io/api/v2'));
-    const demo = index_1.Knict.create(new GankService_1.GankService());
+        .baseUrl('https://gank.io/api/v2')).create(new GankService_1.GankService());
     let res = yield demo.banners();
     // console.info(res.data)
     console.info(GankService_1.CategoryType);
