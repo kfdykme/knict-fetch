@@ -1,7 +1,7 @@
 import { KnictBasicClientBuilder } from 'knict'
 import * as HttpMethod from '../methods/HttpMethod'
 import axios, { AxiosInstance } from 'axios';
- 
+import { logger } from '../common/Logger'
 
 export class FetchClientBuilder extends KnictBasicClientBuilder {
 
@@ -36,7 +36,7 @@ export class FetchClientBuilder extends KnictBasicClientBuilder {
     handlePost(k: any) {
 
         const url = this.baseUrl_ + k.url
-        console.info('handlePost', url)
+        logger.info('handlePost', url)
         if (this.hasPostData(k)) {
             const post = k.data.post
             for (let x in post) {
@@ -57,7 +57,7 @@ export class FetchClientBuilder extends KnictBasicClientBuilder {
         }
 
 
-        console.info('handlePost', k.http.data)
+        logger.info('handlePost', k.http.data)
         return this.axios_({
             method: 'post',
             url: url,
@@ -70,7 +70,7 @@ export class FetchClientBuilder extends KnictBasicClientBuilder {
         // resolve Get path
 
         const url = this.baseUrl_ + k.url
-        console.info('handleGet', url)
+        logger.info('handleGet', url)
         if (this.hasPath(k)) {
             const path = k.data.path
             for (let x in path) {
@@ -86,7 +86,7 @@ export class FetchClientBuilder extends KnictBasicClientBuilder {
         if (this.baseUrl_ === '') {
             throw new Error(`FetchClientBuilder Error: you need set a base url by FetchClientBuilderInstance.baseUrl(url)`)
         }
-        console.info('Build Fetch', k)
+        logger.info('Build Fetch', k)
 
         return (() => {
             if (this.isPost(k)) {

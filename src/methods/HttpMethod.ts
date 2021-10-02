@@ -71,7 +71,7 @@ function PostData(name: string) {
             }
             targetMethod.knict.data.post[name] = parameterIndex
         }
-        console.log('Knict PostData(): called', target, propertyKey, parameterIndex)
+        logger.log('Knict PostData(): called', target, propertyKey, parameterIndex)
     }
 }
 
@@ -92,7 +92,7 @@ function Path(path: string) {
             }
             targetMethod.knict.data.path[path] = parameterIndex
         }
-        console.log('Knict Path(): called', target, propertyKey, parameterIndex)
+        logger.log('Knict Path(): called', target, propertyKey, parameterIndex)
     }
 }
 
