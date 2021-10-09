@@ -41,7 +41,7 @@ export class FetchClientBuilder extends KnictBasicClientBuilder {
             const post = k.data.post
             for (let x in post) {
                 const postx = k.args[post[x]]
-                if (!k.http.data) k.http.data = new Object()
+                if (!k.http.data || typeof k.http.data !== 'object') k.http.data = new Object()
                 k.http.data[x] = postx
             }
         }
