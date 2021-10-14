@@ -1,8 +1,11 @@
-declare function GET(url: string): (target: any, propertyKey: string, descriptor: PropertyDescriptor) => void;
+interface IFunctionAnnotationRes {
+    (target: any, propertyKey: string, descriptor: PropertyDescriptor): void;
+}
+declare function GET(url: string): IFunctionAnnotationRes;
 declare enum PostType {
     urlencoded = "x-www-form-urlencoded"
 }
-declare function POST(url: string, type?: PostType): (target: any, propertyKey: string, descriptor: PropertyDescriptor) => void;
+declare function POST(url: string, type?: PostType): IFunctionAnnotationRes;
 declare function PostData(name: string): (target: any, propertyKey: string | symbol, parameterIndex: number) => void;
 declare function Path(path: string): (target: any, propertyKey: string | symbol, parameterIndex: number) => void;
 declare const OnUnsupport: () => Promise<never>;

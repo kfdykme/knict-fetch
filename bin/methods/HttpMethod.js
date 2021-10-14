@@ -10,17 +10,23 @@ const logger = (() => {
         return { log: () => { }, info: () => { }, error: () => { } };
     }
 })();
-function GET(url) {
-    logger.log('Knict GET(): evaluated');
+function BaseAnotaionForFunction(f) {
     return function (target, propertyKey, descriptor) {
         let targetMethod = target[propertyKey];
         if (targetMethod !== undefined && targetMethod instanceof Function) {
-            targetMethod.knict = Object.assign(Object.assign({}, targetMethod.knict), { url: url, name: propertyKey, http: {
-                    method: 'GET'
-                } });
+            f && f(targetMethod, propertyKey);
         }
-        logger.log('Knict GET(): called', target, propertyKey, descriptor);
+        else {
+            throw new Error('anotaionForFunction error');
+        }
     };
+}
+function GET(url) {
+    return BaseAnotaionForFunction((targetMethod, propertyKey) => {
+        targetMethod.knict = Object.assign(Object.assign({}, targetMethod.knict), { url: url, name: propertyKey, http: {
+                method: 'GET'
+            } });
+    });
 }
 exports.GET = GET;
 var PostType;
@@ -31,17 +37,13 @@ var PostType;
 exports.PostType = PostType;
 function POST(url, type = PostType.urlencoded) {
     logger.log('Knict POST(): evaluated');
-    return function (target, propertyKey, descriptor) {
-        let targetMethod = target[propertyKey];
-        if (targetMethod !== undefined && targetMethod instanceof Function) {
-            targetMethod.knict = Object.assign(Object.assign({}, targetMethod.knict), { url: url, name: propertyKey, http: {
-                    method: 'POST',
-                    type: type,
-                    data: {}
-                } });
-        }
-        logger.log('Knict POST(): called', target, propertyKey, descriptor);
-    };
+    return BaseAnotaionForFunction((targetMethod, propertyKey) => {
+        targetMethod.knict = Object.assign(Object.assign({}, targetMethod.knict), { url: url, name: propertyKey, http: {
+                method: 'POST',
+                type: type,
+                data: {}
+            } });
+    });
 }
 exports.POST = POST;
 function PostData(name) {

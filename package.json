@@ -3,6 +3,9 @@
   "version": "0.1.8",
   "description": "",
   "main": "bin/index.js",
+  "files": [
+      "bin"
+  ],
   "scripts": {
     "build": "rm -rf ./dist && tsc && rm -rf ./bin/* && mkdir -p ./bin && cp -r ./dist/* ./bin",
     "test": "yarn build && node ./dist/test/test.js"
