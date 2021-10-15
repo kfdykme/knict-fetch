@@ -1,6 +1,5 @@
 import { HttpMethod } from '../../index'
 import { AxiosResponse } from 'axios'
-import { get } from 'knict/bin/Knict'
 
 
 const { GET, Path, OnUnsupport } = HttpMethod
