@@ -13,7 +13,11 @@ import { GankService, CategoryType } from './service/GankService'
         .baseUrl('https://gank.io/api/v2')
     ).create(new GankService())
 
-    let res:any = await demo.banners()
+    let res:any = await demo.bannersAsStream()
+    console.info('stream result res', res.data)
+    res.data.on('data', (data: any) => {
+        console.info('on stream data: ', data + '')
+    })
 
     // console.info(res.data)
     console.info(CategoryType)

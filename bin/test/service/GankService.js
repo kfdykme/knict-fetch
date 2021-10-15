@@ -14,7 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GankService = exports.CategoryType = void 0;
 const index_1 = require("../../index");
-const { GET, Path, OnUnsupport } = index_1.HttpMethod;
+const { GET, Path, OnUnsupport, ResponseType } = index_1.HttpMethod;
 var CategoryType;
 (function (CategoryType) {
     CategoryType["article"] = "Article";
@@ -23,6 +23,9 @@ var CategoryType;
 })(CategoryType = exports.CategoryType || (exports.CategoryType = {}));
 class GankService {
     banners() {
+        return OnUnsupport();
+    }
+    bannersAsStream() {
         return OnUnsupport();
     }
     categories(categoryType) {
@@ -38,6 +41,13 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], GankService.prototype, "banners", null);
+__decorate([
+    GET("/banners"),
+    ResponseType('stream'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], GankService.prototype, "bannersAsStream", null);
 __decorate([
     GET("/categories/{category_type}"),
     __param(0, Path('category_type')),

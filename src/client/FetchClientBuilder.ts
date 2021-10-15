@@ -58,11 +58,20 @@ export class FetchClientBuilder extends KnictBasicClientBuilder {
 
 
         logger.info('handlePost', k.http.data)
-        return this.axios_({
-            method: 'post',
-            url: url,
-            data: k.http.data
-        })
+        if (k.http && k.http.responseType) {
+            return this.axios_({
+                method: 'post',
+                url: url,
+                data: k.http.data,
+                responseType: k.http.responseType
+            })
+        } else {
+            return this.axios_({
+                method: 'post',
+                url: url,
+                data: k.http.data
+            })
+        }
     }
 
     handleGet(k: any) {
@@ -79,7 +88,16 @@ export class FetchClientBuilder extends KnictBasicClientBuilder {
                 k.url = k.url.replace(reg, pathx)
             }
         }
-        return this.axios_.get(url)
+
+        if (k.http && k.http.responseType) {
+
+            return this.axios_.get(url, {
+                responseType: k.http.responseType
+            })
+        } else {
+            return this.axios_.get(url)
+        }
+
     }
 
     build(k: any): any {

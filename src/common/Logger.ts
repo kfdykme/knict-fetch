@@ -1,4 +1,4 @@
-const isLogOpen = false
+const isLogOpen = true
 
 const logger: any = (() => {
     if (isLogOpen) {

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PostType = exports.OnUnsupport = exports.PostData = exports.POST = exports.Path = exports.GET = void 0;
+exports.ResponseType = exports.PostType = exports.OnUnsupport = exports.PostData = exports.POST = exports.Path = exports.GET = void 0;
 const knict_1 = require("knict");
 const isLogOpen = false;
 const logger = (() => {
@@ -13,12 +13,27 @@ const logger = (() => {
 })();
 function GET(url) {
     return (0, knict_1.BaseAnotaionForFunction)((targetMethod, propertyKey) => {
-        targetMethod.knict = Object.assign(Object.assign({}, targetMethod.knict), { url: url, name: propertyKey, http: {
-                method: 'GET'
-            } });
+        targetMethod.knict = Object.assign(Object.assign({}, targetMethod.knict), { url: url, name: propertyKey });
+        if (!targetMethod.knict.http) {
+            targetMethod.knict.http = new Object();
+        }
+        targetMethod.knict.http.method = 'GET';
     });
 }
 exports.GET = GET;
+/**
+ * Change ResponseType
+ */
+function ResponseType(type) {
+    return (0, knict_1.BaseAnotaionForFunction)((targetMethod, propertyKey) => {
+        targetMethod.knict = Object.assign({}, targetMethod.knict);
+        if (!targetMethod.knict.http) {
+            targetMethod.knict.http = new Object();
+        }
+        targetMethod.knict.http.responseType = type;
+    });
+}
+exports.ResponseType = ResponseType;
 var PostType;
 (function (PostType) {
     PostType["urlencoded"] = "x-www-form-urlencoded";
@@ -28,11 +43,13 @@ exports.PostType = PostType;
 function POST(url, type = PostType.urlencoded) {
     logger.log('Knict POST(): evaluated');
     return (0, knict_1.BaseAnotaionForFunction)((targetMethod, propertyKey) => {
-        targetMethod.knict = Object.assign(Object.assign({}, targetMethod.knict), { url: url, name: propertyKey, http: {
-                method: 'POST',
-                type: type,
-                data: {}
-            } });
+        targetMethod.knict = Object.assign(Object.assign({}, targetMethod.knict), { url: url, name: propertyKey });
+        if (!targetMethod.knict.http) {
+            targetMethod.knict.http = new Object();
+        }
+        targetMethod.knict.http.method = 'POST';
+        targetMethod.knict.http.type = type;
+        targetMethod.knict.http.data = {};
     });
 }
 exports.POST = POST;

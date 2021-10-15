@@ -18,6 +18,8 @@ const onUnsupport = (() => Promise.reject('Unsupport'));
 class FetchDemoService {
     // Call<List<Repo>> listRepos(@Path("user") String user);')
     github(user) { return onUnsupport(); }
+    // Call<List<Repo>> listRepos(@Path("user") String user);')
+    githubAsStream(user) { return onUnsupport(); }
 }
 __decorate([
     (0, HttpMethod_1.GET)('users/{user}/repos'),
@@ -26,4 +28,12 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], FetchDemoService.prototype, "github", null);
+__decorate([
+    (0, HttpMethod_1.GET)('users/{user}/repos'),
+    (0, HttpMethod_1.ResponseType)('stream'),
+    __param(0, (0, HttpMethod_1.Path)('user')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], FetchDemoService.prototype, "githubAsStream", null);
 exports.FetchDemoService = FetchDemoService;

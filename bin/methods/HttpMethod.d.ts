@@ -1,4 +1,9 @@
+import { ResponseType as AxiosResponseType } from 'axios';
 declare function GET(url: string): import("knict/bin/KnictBase").IFunctionAnnotationRes;
+/**
+ * Change ResponseType
+ */
+declare function ResponseType(type: AxiosResponseType): import("knict/bin/KnictBase").IFunctionAnnotationRes;
 declare enum PostType {
     urlencoded = "x-www-form-urlencoded"
 }
@@ -13,4 +18,4 @@ declare interface Response<T = any> {
     headers: any;
     request?: any;
 }
-export { GET, Path, POST, PostData, OnUnsupport, Response, PostType };
+export { GET, Path, POST, PostData, OnUnsupport, Response, PostType, ResponseType };

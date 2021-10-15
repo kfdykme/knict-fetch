@@ -1,4 +1,5 @@
 import { BaseAnotaionForFunction, BaseAnotaionForParam } from 'knict'
+import { ResponseType as AxiosResponseType } from 'axios'
 const isLogOpen = false
 
 const logger: any = (() => {
@@ -15,10 +16,29 @@ function GET(url: string) {
             ...targetMethod.knict,
             url: url,
             name: propertyKey,
-            http: {
-                method: 'GET'
-            }
         }
+
+        if (!targetMethod.knict.http) {
+            targetMethod.knict.http = new Object()
+        }
+        targetMethod.knict.http.method = 'GET'
+    })
+}
+
+/**
+ * Change ResponseType
+ */
+function ResponseType(type: AxiosResponseType) {
+    return BaseAnotaionForFunction((targetMethod, propertyKey) => {
+        targetMethod.knict = {
+            ...targetMethod.knict
+        }
+
+        if (!targetMethod.knict.http) {
+            targetMethod.knict.http = new Object()
+        }
+
+        targetMethod.knict.http.responseType = type
     })
 }
 
@@ -34,14 +54,21 @@ function POST(url: string, type: PostType = PostType.urlencoded) {
             ...targetMethod.knict,
             url: url,
             name: propertyKey,
-            http: {
-                method: 'POST',
-                type: type,
-                data: {
+            // http: {
+            //     method: 'POST',
+            //     type: type,
+            //     data: {
 
-                }
-            }
+            //     }
+            // }
         }
+        if (!targetMethod.knict.http) {
+            targetMethod.knict.http = new Object()
+        }
+        targetMethod.knict.http.method = 'POST'
+        targetMethod.knict.http.type = type
+        targetMethod.knict.http.data = {}
+
     })
 }
 
@@ -90,4 +117,4 @@ declare interface Response<T = any> {
     headers: any;
     request?: any;
 }
-export { GET, Path, POST, PostData, OnUnsupport, Response, PostType }
+export { GET, Path, POST, PostData, OnUnsupport, Response, PostType, ResponseType }

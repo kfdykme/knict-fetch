@@ -1,8 +1,7 @@
 import { HttpMethod } from '../../index'
 import { AxiosResponse } from 'axios'
 
-
-const { GET, Path, OnUnsupport } = HttpMethod
+const { GET, Path, OnUnsupport, ResponseType } = HttpMethod
 
 export enum CategoryType {
     article = 'Article',
@@ -18,6 +17,12 @@ export class GankService {
         return OnUnsupport()
     }
 
+    
+    @GET("/banners")
+    @ResponseType('stream')
+    bannersAsStream(): Promise<AxiosResponse<any>> {
+        return OnUnsupport()
+    }
 
     @GET("/categories/{category_type}")
     categories(@Path('category_type') categoryType: CategoryType): Promise<AxiosResponse<any>> {
