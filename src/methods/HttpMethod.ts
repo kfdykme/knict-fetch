@@ -29,16 +29,12 @@ function GET(url: string) {
  * Change ResponseType
  */
 function ResponseType(type: AxiosResponseType) {
-    return BaseAnotaionForFunction((targetMethod, propertyKey) => {
-        targetMethod.knict = {
-            ...targetMethod.knict
+    return BaseAnotaionForFunction(() => {
+        return {
+            http: {
+                responseType: type
+            }
         }
-
-        if (!targetMethod.knict.http) {
-            targetMethod.knict.http = new Object()
-        }
-
-        targetMethod.knict.http.responseType = type
     })
 }
 
@@ -50,25 +46,17 @@ enum PostType {
 function POST(url: string, type: PostType = PostType.urlencoded) {
     logger.log('Knict POST(): evaluated')
     return BaseAnotaionForFunction((targetMethod, propertyKey: string) => {
-        targetMethod.knict = {
-            ...targetMethod.knict,
+        return {
             url: url,
             name: propertyKey,
-            // http: {
-            //     method: 'POST',
-            //     type: type,
-            //     data: {
+            http: {
+                method: 'POST',
+                type: type,
+                data: {
 
-            //     }
-            // }
+                }
+            }
         }
-        if (!targetMethod.knict.http) {
-            targetMethod.knict.http = new Object()
-        }
-        targetMethod.knict.http.method = 'POST'
-        targetMethod.knict.http.type = type
-        targetMethod.knict.http.data = {}
-
     })
 }
 
@@ -86,6 +74,7 @@ function PostData(name: string) {
             targetMethod.knict.data.post = new Object()
         }
         targetMethod.knict.data.post[name] = parameterIndex
+        
     })
 }
 

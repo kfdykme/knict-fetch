@@ -14,7 +14,7 @@ import { GankService, CategoryType } from './service/GankService'
     ).create(new GankService())
 
     let res:any = await demo.bannersAsStream()
-    console.info('stream result res', res.data)
+    // console.info('stream result res', res.data)
     res.data.on('data', (data: any) => {
         console.info('on stream data: ', data + '')
     })

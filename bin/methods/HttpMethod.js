@@ -25,12 +25,12 @@ exports.GET = GET;
  * Change ResponseType
  */
 function ResponseType(type) {
-    return (0, knict_1.BaseAnotaionForFunction)((targetMethod, propertyKey) => {
-        targetMethod.knict = Object.assign({}, targetMethod.knict);
-        if (!targetMethod.knict.http) {
-            targetMethod.knict.http = new Object();
-        }
-        targetMethod.knict.http.responseType = type;
+    return (0, knict_1.BaseAnotaionForFunction)(() => {
+        return {
+            http: {
+                responseType: type
+            }
+        };
     });
 }
 exports.ResponseType = ResponseType;
@@ -43,13 +43,15 @@ exports.PostType = PostType;
 function POST(url, type = PostType.urlencoded) {
     logger.log('Knict POST(): evaluated');
     return (0, knict_1.BaseAnotaionForFunction)((targetMethod, propertyKey) => {
-        targetMethod.knict = Object.assign(Object.assign({}, targetMethod.knict), { url: url, name: propertyKey });
-        if (!targetMethod.knict.http) {
-            targetMethod.knict.http = new Object();
-        }
-        targetMethod.knict.http.method = 'POST';
-        targetMethod.knict.http.type = type;
-        targetMethod.knict.http.data = {};
+        return {
+            url: url,
+            name: propertyKey,
+            http: {
+                method: 'POST',
+                type: type,
+                data: {}
+            }
+        };
     });
 }
 exports.POST = POST;
