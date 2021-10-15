@@ -78,16 +78,7 @@ export class FetchClientBuilder extends KnictBasicClientBuilder {
 
         // resolve Get path
 
-        const url = this.baseUrl_ + k.url
-        logger.info('handleGet', url)
-        if (this.hasPath(k)) {
-            const path = k.data.path
-            for (let x in path) {
-                const pathx = k.args[path[x]]
-                const reg = new RegExp(`\{${x}\}`)
-                k.url = k.url.replace(reg, pathx)
-            }
-        }
+        let url = this.baseUrl_ + k.url
 
         if (k.http && k.http.responseType) {
 
@@ -105,7 +96,15 @@ export class FetchClientBuilder extends KnictBasicClientBuilder {
             throw new Error(`FetchClientBuilder Error: you need set a base url by FetchClientBuilderInstance.baseUrl(url)`)
         }
         logger.info('Build Fetch', k)
-
+ 
+        if (this.hasPath(k)) {
+            const path = k.data.path
+            for (let x in path) {
+                const pathx = k.args[path[x]]
+                const reg = new RegExp(`\{${x}\}`)
+                k.url = k.url.replace(reg, pathx)
+            }
+        }
         return (() => {
             if (this.isPost(k)) {
                 return this.handlePost(k)
