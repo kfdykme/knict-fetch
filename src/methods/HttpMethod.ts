@@ -38,6 +38,16 @@ function ResponseType(type: AxiosResponseType) {
     })
 }
 
+function Headers(headers: any) {
+    return BaseAnotaionForFunction(() => {
+        return {
+            http: {
+                headers
+            }
+        }
+    })
+}
+
 enum PostType {
     urlencoded = 'x-www-form-urlencoded',
     // TODO: 
@@ -106,4 +116,4 @@ declare interface Response<T = any> {
     headers: any;
     request?: any;
 }
-export { GET, Path, POST, PostData, OnUnsupport, Response, PostType, ResponseType }
+export { GET, Path, POST, PostData, OnUnsupport, Response, PostType, ResponseType, Headers }
