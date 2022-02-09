@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ResponseType = exports.PostType = exports.OnUnsupport = exports.PostData = exports.POST = exports.Path = exports.GET = void 0;
+exports.Headers = exports.ResponseType = exports.PostType = exports.OnUnsupport = exports.PostData = exports.POST = exports.Path = exports.GET = void 0;
 const knict_1 = require("knict");
 const isLogOpen = false;
 const logger = (() => {
@@ -34,6 +34,16 @@ function ResponseType(type) {
     });
 }
 exports.ResponseType = ResponseType;
+function Headers(headers) {
+    return (0, knict_1.BaseAnotaionForFunction)(() => {
+        return {
+            http: {
+                headers
+            }
+        };
+    });
+}
+exports.Headers = Headers;
 var PostType;
 (function (PostType) {
     PostType["urlencoded"] = "x-www-form-urlencoded";
