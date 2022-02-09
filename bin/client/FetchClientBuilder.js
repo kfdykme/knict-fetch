@@ -58,14 +58,16 @@ class FetchClientBuilder extends knict_1.KnictBasicClientBuilder {
                 method: 'post',
                 url: url,
                 data: k.http.data,
-                responseType: k.http.responseType
+                responseType: k.http.responseType,
+                headers: k.http.headers
             });
         }
         else {
             return this.axios_({
                 method: 'post',
                 url: url,
-                data: k.http.data
+                data: k.http.data,
+                headers: k.http.headers
             });
         }
     }
@@ -74,11 +76,14 @@ class FetchClientBuilder extends knict_1.KnictBasicClientBuilder {
         let url = this.baseUrl_ + k.url;
         if (k.http && k.http.responseType) {
             return this.axios_.get(url, {
-                responseType: k.http.responseType
+                responseType: k.http.responseType,
+                headers: k.http.headers
             });
         }
         else {
-            return this.axios_.get(url);
+            return this.axios_.get(url, {
+                headers: k.http.headers
+            });
         }
     }
     build(k) {

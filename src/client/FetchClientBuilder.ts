@@ -63,13 +63,15 @@ export class FetchClientBuilder extends KnictBasicClientBuilder {
                 method: 'post',
                 url: url,
                 data: k.http.data,
-                responseType: k.http.responseType
+                responseType: k.http.responseType,
+                headers: k.http.headers
             })
         } else {
             return this.axios_({
                 method: 'post',
                 url: url,
-                data: k.http.data
+                data: k.http.data,
+                headers: k.http.headers
             })
         }
     }
@@ -83,10 +85,13 @@ export class FetchClientBuilder extends KnictBasicClientBuilder {
         if (k.http && k.http.responseType) {
 
             return this.axios_.get(url, {
-                responseType: k.http.responseType
+                responseType: k.http.responseType,
+                headers: k.http.headers
             })
         } else {
-            return this.axios_.get(url)
+            return this.axios_.get(url, {
+                headers: k.http.headers
+            })
         }
 
     }
