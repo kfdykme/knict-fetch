@@ -13,27 +13,41 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const index_1 = require("../index");
 const GankService_1 = require("./service/GankService");
-(() => __awaiter(void 0, void 0, void 0, function* () {
-    const demo = index_1.Knict.builder(new index_1.FetchClientBuilder()
-        // .baseUrl('https://api.github.com/')
-        .baseUrl('https://gank.io/api/v2')).create(new GankService_1.GankService());
-    let res = yield demo.bannersAsStream();
-    // console.info('stream result res', res.data)
-    res.data.on('data', (data) => {
-        console.info('on stream data: ', data + '');
-    });
-    // console.info(res.data)
-    console.info(GankService_1.CategoryType);
-    // res = await demo.categories(CategoryType.article)
-    // console.info(res.data)
-    res = yield demo.categories(GankService_1.CategoryType.girl);
-    // console.info(res.data)
-    // res = await demo.categories(CategoryType.girl)
-    console.info(res.data);
-    if (res.data && res.data.data instanceof Array) {
-        res.data.data.forEach((i) => __awaiter(void 0, void 0, void 0, function* () {
-            const resd = yield demo.data(GankService_1.CategoryType.girl, i.type, 0, 3);
-            console.info(resd.data);
-        }));
-    }
-}))();
+try {
+    (() => __awaiter(void 0, void 0, void 0, function* () {
+        const demo = index_1.Knict.builder(new index_1.FetchClientBuilder()
+            // .baseUrl('https://api.github.com/')
+            .baseUrl('http://9.135.18.111:5174')).create(new GankService_1.GankService());
+        // let res:any = await demo.bannersAsStream()
+        // // console.info('stream result res', res.data)
+        // res.data.on('data', (data: any) => {
+        //     console.info('on stream data: ', data + '')
+        // })
+        // // console.info(res.data)
+        // console.info(CategoryType)
+        // // res = await demo.categories(CategoryType.article)
+        // // console.info(res.data)
+        // res = await demo.categories(CategoryType.girl)
+        // // console.info(res.data)
+        // // res = await demo.categories(CategoryType.girl)
+        // console.info(res.data)
+        // if (res.data && res.data.data instanceof Array) {
+        //     res.data.data.forEach(async (i: any) => {
+        //         const resd = await demo.data(CategoryType.girl, i.type, 0, 3)
+        //         console.info(resd.data)
+        //     })
+        // } 
+        demo.home()
+            .then(res => {
+            console.info(res.data);
+            demo.uploadFile({ name: 'a' });
+            // .catch((err) => {
+            //     console.error(err)
+            // })
+        })
+            .catch(console.error);
+    }))();
+}
+catch (err) {
+    console.error(err);
+}

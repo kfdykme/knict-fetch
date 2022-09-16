@@ -14,6 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GankService = exports.CategoryType = void 0;
 const index_1 = require("../../index");
+const HttpMethod_1 = require("../../methods/HttpMethod");
 const { GET, Path, OnUnsupport, ResponseType } = index_1.HttpMethod;
 var CategoryType;
 (function (CategoryType) {
@@ -32,6 +33,12 @@ class GankService {
         return OnUnsupport();
     }
     data(CategoryType, type, page, count) {
+        return OnUnsupport();
+    }
+    home() {
+        return OnUnsupport();
+    }
+    uploadFile(file) {
         return OnUnsupport();
     }
 }
@@ -65,4 +72,17 @@ __decorate([
     __metadata("design:paramtypes", [String, String, Number, Number]),
     __metadata("design:returntype", Promise)
 ], GankService.prototype, "data", null);
+__decorate([
+    GET("/"),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], GankService.prototype, "home", null);
+__decorate([
+    (0, HttpMethod_1.POST)('/upload', index_1.HttpMethod.PostType.multipartformdata),
+    __param(0, (0, HttpMethod_1.PostFile)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], GankService.prototype, "uploadFile", null);
 exports.GankService = GankService;

@@ -1,7 +1,7 @@
 import { KnictBasicClientBuilder } from 'knict'
 import * as HttpMethod from '../methods/HttpMethod'
 import axios, { AxiosInstance } from 'axios';
-import { logger } from '../common/Logger'
+import { logger } from '../common/Logger' 
 
 export class FetchClientBuilder extends KnictBasicClientBuilder {
 
@@ -56,6 +56,29 @@ export class FetchClientBuilder extends KnictBasicClientBuilder {
             k.http.data = res.join('&')
         }
 
+        if (k.http.type === HttpMethod.PostType.multipartformdata) {
+            var formData = undefined; 
+            try {
+                formData = new FormData();
+            } catch(err) { 
+                try {
+                    formData = new window.FormData();
+                } catch (err2) { 
+                    formData = new (require('form-data'))()
+                }
+            }
+            if (formData != undefined) {
+                if (k.data.postFile !== undefined) {
+                    var fileParam = k.args[k.data.postFile];
+                    console.info(fileParam)
+                    formData.append('file',fileParam, fileParam.name);
+                } else {
+                    console.error(k.data.postFile)
+                }
+                k.http.data = formData;
+            }
+        }
+
 
         logger.info('handlePost', k.http.data)
         if (k.http && k.http.responseType) {
@@ -97,11 +120,12 @@ export class FetchClientBuilder extends KnictBasicClientBuilder {
     }
 
     build(k: any): any {
+        k.res = undefined;
         if (this.baseUrl_ === '') {
             throw new Error(`FetchClientBuilder Error: you need set a base url by FetchClientBuilderInstance.baseUrl(url)`)
         }
         logger.info('Build Fetch', k)
- 
+        
         if (this.hasPath(k)) {
             const path = k.data.path
             for (let x in path) {
@@ -115,9 +139,10 @@ export class FetchClientBuilder extends KnictBasicClientBuilder {
                 return this.handlePost(k)
             } else if (this.isGet(k)) {
                 return this.handleGet(k)
+            } else {
+                console.error('not post & get')
+                return Promise.reject(new Error('Unsupport'))
             }
-            return Promise.reject(new Error('Unsupport'))
-
         })()
     }
 }

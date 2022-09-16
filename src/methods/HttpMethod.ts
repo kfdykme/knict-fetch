@@ -50,6 +50,7 @@ function Headers(headers: any) {
 
 enum PostType {
     urlencoded = 'x-www-form-urlencoded',
+    multipartformdata = 'multipart/form-data'
     // TODO: 
 }
 
@@ -68,6 +69,17 @@ function POST(url: string, type: PostType = PostType.urlencoded) {
             }
         }
     })
+}
+
+function PostFile() {
+    logger.log('Knict PostFile')
+    return BaseAnotaionForParam((targetMethod, propertyKey: string | symbol, parameterIndex: number) => {
+        return {
+           data: {
+               postFile: parameterIndex
+           }
+        }
+    });
 }
 
 function PostData(name: string) {
@@ -106,7 +118,8 @@ function Path(path: string) {
     })
 }
 
-const OnUnsupport = (() => Promise.reject('Unsupport'))
+const OnUnsupport = () => {
+    return Promise.reject('NOT IMPL')}
 
 
 declare interface Response<T = any> {
@@ -116,4 +129,4 @@ declare interface Response<T = any> {
     headers: any;
     request?: any;
 }
-export { GET, Path, POST, PostData, OnUnsupport, Response, PostType, ResponseType, Headers }
+export { GET, Path, POST, PostData, OnUnsupport, Response, PostType, ResponseType, Headers, PostFile }

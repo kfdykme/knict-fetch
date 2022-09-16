@@ -6,7 +6,9 @@ export declare enum CategoryType {
 }
 export declare class GankService {
     banners(): Promise<AxiosResponse<any>>;
-    bannersAsStream(): Promise<AxiosResponse<any>>;
-    categories(categoryType: CategoryType): Promise<AxiosResponse<any>>;
-    data(CategoryType: CategoryType, type: string, page: number, count: number): Promise<AxiosResponse<any>>;
+    bannersAsStream(): Promise<AxiosResponse<any> | any>;
+    categories(categoryType: CategoryType): Promise<AxiosResponse<any> | any>;
+    data(CategoryType: CategoryType, type: string, page: number, count: number): Promise<AxiosResponse<any> | any>;
+    home(): Promise<any>;
+    uploadFile(file: any): Promise<any>;
 }

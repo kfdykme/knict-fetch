@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Headers = exports.ResponseType = exports.PostType = exports.OnUnsupport = exports.PostData = exports.POST = exports.Path = exports.GET = void 0;
+exports.PostFile = exports.Headers = exports.ResponseType = exports.PostType = exports.OnUnsupport = exports.PostData = exports.POST = exports.Path = exports.GET = void 0;
 const knict_1 = require("knict");
 const isLogOpen = false;
 const logger = (() => {
@@ -47,6 +47,7 @@ exports.Headers = Headers;
 var PostType;
 (function (PostType) {
     PostType["urlencoded"] = "x-www-form-urlencoded";
+    PostType["multipartformdata"] = "multipart/form-data";
     // TODO: 
 })(PostType || (PostType = {}));
 exports.PostType = PostType;
@@ -65,6 +66,17 @@ function POST(url, type = PostType.urlencoded) {
     });
 }
 exports.POST = POST;
+function PostFile() {
+    logger.log('Knict PostFile');
+    return (0, knict_1.BaseAnotaionForParam)((targetMethod, propertyKey, parameterIndex) => {
+        return {
+            data: {
+                postFile: parameterIndex
+            }
+        };
+    });
+}
+exports.PostFile = PostFile;
 function PostData(name) {
     logger.log('Knict PostData() : evaluated');
     return (0, knict_1.BaseAnotaionForParam)((targetMethod, propertyKey, parameterIndex) => {
@@ -93,5 +105,7 @@ function Path(path) {
     });
 }
 exports.Path = Path;
-const OnUnsupport = (() => Promise.reject('Unsupport'));
+const OnUnsupport = () => {
+    return Promise.reject('NOT IMPL');
+};
 exports.OnUnsupport = OnUnsupport;
